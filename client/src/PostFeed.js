@@ -6,16 +6,14 @@ const PostFeed = () => {
   const [post, setPost] = useState();
   useEffect(() => {
     //fetching news data from gnews api
-    fetch(
-      "https://gnews.io/api/v4/search?q=example&token=e607d8dfa0d74cc47760b3526cfaef9d"
-    )
+    fetch("/api/get-posts")
       .then((res) => {
         console.log("Response is", res);
         return res.json();
       })
       .then((data) => {
         console.log("Data is", data);
-        setPost(data);
+        setPost(data.data);
         console.log("Data in state is:", data);
       })
       .catch((err) => {
@@ -28,7 +26,7 @@ const PostFeed = () => {
   }
   return (
     <>
-      {post.articles.map((item) => {
+      {post.map((item) => {
         console.log("The item data is", item);
 
         return (

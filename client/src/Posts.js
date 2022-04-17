@@ -72,9 +72,9 @@ const PostDate = styled.div`
 
 const PostTitle = styled.div`
   margin-top: 16px;
-  font-size: 1.5em;
+  font-size: 1.2em;
   color: #333;
-  font-weight: 600;
+  font-weight: 500;
 `;
 
 const PostDesc = styled.div`

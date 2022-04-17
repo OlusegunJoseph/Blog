@@ -15,6 +15,8 @@ const Header = () => {
 export default Header;
 
 const Container = styled.div`
+  position: sticky;
+  top: 0;
   /* display: flex;
   flex-direction: column;
   min-height: 350px;
