@@ -1,21 +1,29 @@
 import React from "react";
 import styled from "styled-components";
 import "./Post.css";
+import { Link } from "react-router-dom";
+import post from "./Post";
 
-const Posts = ({ title, image, desc, item }) => {
+const Posts = ({ title, image, photo, desc, date, newDate, _id }) => {
+  const PF = "http://localhost:8000/images";
   return (
     <>
       <Main className="main">
         <MainContainer className="main-container">
           <PostContainer className="post-container">
             <Picture className="post-image">
-              <img className="post-image" src={image} />
+              <img className="post-image" src={photo} alt="" />
             </Picture>
             <PostContent>
-              <PostDate className="post-date">April 14</PostDate>
-              <PostTitle className="post-title">
-                <h4>{title}</h4>
-              </PostTitle>
+              <PostDate className="post-date">
+                {/* {new Date(date).toDateString()} */}
+                {new Date(newDate).toDateString()}
+              </PostDate>
+              <Link to={`/post/${_id}`} className="link">
+                <PostTitle className="post-title">
+                  <h4>{title}</h4>
+                </PostTitle>
+              </Link>
               <PostDesc className="post-desc">{desc}</PostDesc>
             </PostContent>
           </PostContainer>
@@ -80,8 +88,14 @@ const PostTitle = styled.div`
 const PostDesc = styled.div`
   margin-top: 4px;
   color: #495057;
-  font-weight: 400;
-  line-height: 1.4;
+  /* font-weight: 300; */
+  line-height: 24px;
   max-height: 65px;
   overflow: hidden;
+  font-family: "Varela Round", "sans-serif";
+  font-size: 14px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;

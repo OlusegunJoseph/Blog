@@ -2,7 +2,43 @@
 
 // import the needed node_modules.
 const express = require("express");
+const app = express();
 const morgan = require("morgan");
+const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+const authRoute = require("./routes/auth");
+const userRoute = require("./routes/users");
+const postRoute = require("./routes/posts");
+const categoryRoute = require("./routes/categories");
+const multer = require("multer");
+const path = require("path");
+
+dotenv.config();
+app.use(express.json());
+app.use("/images", express.static(path.join(__dirname, "/images")));
+
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    // useCreateIndex: true,
+  })
+  .then(console.log("connected to MongoDB"))
+  .catch((err) => console.log(err));
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, req.body.name);
+  },
+});
+
+const upload = multer({ storage: storage });
+app.post("/api/upload", upload.single("file"), (req, res) => {
+  res.status(200).json("File has been uploaded");
+});
 
 const {
   getPosts,
@@ -31,7 +67,11 @@ express()
       status: 404,
       message: "This is obviously not what you are looking for.",
     });
-  })
+  });
 
-  // Node spins up our server and sets it to listen on port 8000.
-  .listen(8000, () => console.log(`Listening on port 8000`));
+app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
+app.use("/api/posts", postRoute);
+app.use("/api/categories", categoryRoute);
+// Node spins up our server and sets it to listen on port 8000.
+app.listen(8000, () => console.log(`Listening on port 8000`));

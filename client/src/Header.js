@@ -15,8 +15,9 @@ const Header = () => {
 export default Header;
 
 const Container = styled.div`
-  position: sticky;
-  top: 0;
+  /* margin-top: 60px; */
+  /* position: sticky; */
+  /* top: 0; */
   /* display: flex;
   flex-direction: column;
   min-height: 350px;
@@ -39,5 +40,6 @@ const ProfileName = styled.div`
   font-weight: bold;
 `;
 const Subtext = styled.div`
+  font-family: "josefin Sans", sans-serif;
   margin-top: 8px;
 `;
